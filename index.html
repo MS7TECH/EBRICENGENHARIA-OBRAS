@@ -65,7 +65,7 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 150px;
+      height: 90px;
       background: rgba(255, 255, 255, 0.97);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -79,7 +79,7 @@
     }
 
     .header.scrolled {
-      height: 120px;
+      height: 75px;
       box-shadow: 0 4px 30px rgba(0,0,0,0.1);
     }
 
@@ -93,16 +93,16 @@
     }
 
     .logo img {
-      height: 250px;
+      height: 130px;
       width: auto;
-      max-width: 400px;
+      max-width: 240px;
       object-fit: contain;
       display: block;
       transition: height 0.3s ease;
     }
 
     .header.scrolled .logo img {
-      height: 180px;
+      height: 105px;
     }
 
     .nav-obras {
@@ -904,17 +904,17 @@
       }
       .header {
         padding: 0 3%;
-        height: 100px;
+        height: 75px;
       }
       .header.scrolled {
-        height: 85px;
+        height: 65px;
       }
       .logo img {
-        height: 110px;
-        max-width: 250px;
+        height: 85px;
+        max-width: 170px;
       }
       .header.scrolled .logo img {
-        height: 90px;
+        height: 70px;
       }
       .stats {
         margin-top: -40px;
@@ -1670,7 +1670,6 @@
       const img = new Image();
       img.onload = () => {
         try {
-          // testa se o navegador permite usar a imagem na textura (precisa de servidor, não file://)
           const t = document.createElement('canvas');
           t.width = t.height = 2;
           t.getContext('2d').drawImage(img, 0, 0, 2, 2);
@@ -1731,14 +1730,12 @@
         load.position.y = -len;
         hookG.rotation.z = Math.sin(time * 1.2) * 0.03;
 
-        // gás fluindo, volantes e chama
         dots.forEach(d => { d.position.x += 0.035; if (d.position.x > 4.8) d.position.x = -4.8; });
         wheels.forEach((w, i) => { w.rotation.z = time * 0.6 * (i % 2 ? -1 : 1); });
         const fl = 1 + Math.sin(time * 18) * 0.18 + Math.sin(time * 31) * 0.1;
         f1.scale.set(1, fl, 1);
         f2.scale.set(1, 2 - fl, 1);
 
-        // câmera suave + parallax do mouse
         mx += (tx - mx) * 0.05;
         my += (ty - my) * 0.05;
         world.rotation.y = -0.45 + Math.sin(time * 0.15) * 0.15 + mx * 0.35;
