@@ -35,15 +35,13 @@
     .btn-voltar:hover { border-color: var(--vermelho); color: var(--vermelho); }
 
     .hero-obra { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: flex-end; padding: 6% 5%; overflow: hidden; background: #000; }
-    .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.65; }
-    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); z-index: 2; }
+    .hero-video-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; overflow: hidden; }
+    .hero-video-container iframe { width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.77vh; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.7; border: none; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); z-index: 2; pointer-events: none; }
     .hero-content { position: relative; z-index: 10; color: var(--branco); max-width: 1000px; }
     .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
     .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 16px; }
     .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.8); flex-wrap: wrap; }
-
-    .btn-fullscreen { position: absolute; bottom: 40px; right: 5%; z-index: 50; background: rgba(0, 0, 0, 0.8); color: white; border: 2px solid rgba(255,255,255,0.5); padding: 14px 28px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-weight: 600; backdrop-filter: blur(12px); }
-    .btn-fullscreen:hover { background: var(--laranja); border-color: var(--laranja); }
 
     .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
     .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
@@ -85,7 +83,9 @@
   </header>
 
   <section class="hero-obra">
-    <video id="obraVideo" class="hero-video" src="Novembro 18 - Final - 01 11 18 - 07 11 18.MP4" autoplay loop muted playsinline></video>
+    <div class="hero-video-container">
+      <iframe src="https://www.youtube.com/embed/tSrKHJlmNqI?autoplay=1&mute=1&loop=1&playlist=tSrKHJlmNqI&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" allow="autoplay; encrypted-media" title="Vídeo Drone Maquete"></iframe>
+    </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <span class="tag-categoria">Industrial</span>
@@ -95,7 +95,6 @@
         <span>📅 Novembro, 2018</span>
       </div>
     </div>
-    <button id="btnFullscreen" class="btn-fullscreen">Expandir Vídeo</button>
   </section>
 
   <section class="section-detalhes">
@@ -157,11 +156,6 @@
   </footer>
 
   <script>
-    const video = document.getElementById('obraVideo');
-    document.getElementById('btnFullscreen').addEventListener('click', () => {
-      if (video.requestFullscreen) video.requestFullscreen();
-    });
-
     function openLightbox(src, desc) {
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxDesc').textContent = desc;
