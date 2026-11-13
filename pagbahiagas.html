@@ -29,48 +29,59 @@
     body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--escuro); overflow-x: hidden; line-height: 1.6; }
     h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; }
 
-    .header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 4%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
-    .logo img { height: 130px; width: auto; object-fit: contain; }
-    .btn-voltar { background: transparent; color: var(--escuro); border: 2px solid var(--cinza-claro); padding: 10px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: var(--transicao); }
+    .header { position: fixed; top: 0; left: 0; width: 100%; height: 80px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 4%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .logo img { height: 95px; width: auto; object-fit: contain; }
+    .btn-voltar { background: transparent; color: var(--escuro); border: 2px solid var(--cinza-claro); padding: 8px 20px; border-radius: 50px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: var(--transicao); font-size: 0.9rem; }
     .btn-voltar:hover { border-color: var(--vermelho); color: var(--vermelho); }
 
-    .hero-obra { position: relative; height: 90vh; min-height: 550px; display: flex; align-items: flex-end; padding: 6% 5%; overflow: hidden; background: #000; }
+    .hero-obra { position: relative; height: 85vh; min-height: 500px; display: flex; align-items: flex-end; padding: 6% 4%; overflow: hidden; background: #000; }
     .hero-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; background-image: url('bahiagas-combate-incendio-04.jpg'); background-size: cover; background-position: center; filter: brightness(0.7); z-index: 1; }
     .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%); z-index: 2; pointer-events: none; }
     .hero-content { position: relative; z-index: 10; color: var(--branco); max-width: 1000px; }
-    .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
-    .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); margin-bottom: 16px; }
-    .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.9); flex-wrap: wrap; }
+    .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 5px 14px; border-radius: 50px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; margin-bottom: 16px; }
+    .hero-content h1 { font-size: clamp(2rem, 4.5vw, 4rem); margin-bottom: 12px; }
+    .hero-meta { display: flex; gap: 16px; font-size: 1rem; color: rgba(255,255,255,0.9); flex-wrap: wrap; }
 
-    .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
-    .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
-    .descricao p { font-size: 1.1rem; color: var(--cinza); margin-bottom: 20px; line-height: 1.8; }
-    .parceiro-card { background: var(--branco); border-radius: 24px; padding: 40px; box-shadow: var(--sombra); text-align: center; }
-    .parceiro-card img { max-width: 180px; height: auto; margin-bottom: 20px; object-fit: contain; }
-    .info-list { margin-top: 30px; text-align: left; border-top: 1px solid var(--cinza-claro); padding-top: 20px; }
-    .info-item { margin-bottom: 16px; }
-    .info-item strong { display: block; font-size: 0.85rem; color: var(--vermelho); text-transform: uppercase; margin-bottom: 4px; }
-    .info-item span { font-weight: 500; color: var(--escuro); }
+    .section-detalhes { padding: 80px 4%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+    .descricao h2 { font-size: clamp(1.8rem, 3vw, 2.2rem); margin-bottom: 20px; color: var(--escuro); }
+    .descricao p { font-size: 1rem; color: var(--cinza); margin-bottom: 16px; line-height: 1.7; }
+    .parceiro-card { background: var(--branco); border-radius: 20px; padding: 30px 24px; box-shadow: var(--sombra); text-align: center; }
+    .parceiro-card img { max-width: 150px; height: auto; margin-bottom: 16px; object-fit: contain; }
+    .info-list { margin-top: 24px; text-align: left; border-top: 1px solid var(--cinza-claro); padding-top: 16px; }
+    .info-item { margin-bottom: 12px; }
+    .info-item strong { display: block; font-size: 0.8rem; color: var(--vermelho); text-transform: uppercase; margin-bottom: 2px; }
+    .info-item span { font-weight: 500; color: var(--escuro); font-size: 0.95rem; }
 
-    .section-galeria { padding: 0 5% 100px; max-width: 1400px; margin: 0 auto; }
-    .galeria-header { text-align: center; margin-bottom: 50px; }
-    .galeria-header h2 { font-size: 2.2rem; color: var(--escuro); }
-    .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
-    .grid-item { border-radius: 16px; overflow: hidden; height: 350px; cursor: pointer; position: relative; box-shadow: var(--sombra); }
+    .section-galeria { padding: 0 4% 80px; max-width: 1400px; margin: 0 auto; }
+    .galeria-header { text-align: center; margin-bottom: 40px; }
+    .galeria-header h2 { font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--escuro); }
+    .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .grid-item { border-radius: 16px; overflow: hidden; height: 320px; cursor: pointer; position: relative; box-shadow: var(--sombra); }
     .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
     .grid-item:hover img { transform: scale(1.08); }
     .grid-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; }
     .grid-item:hover .grid-overlay { opacity: 1; }
-    .grid-overlay span { color: white; font-weight: 500; font-size: 1.05rem; }
+    .grid-overlay span { color: white; font-weight: 500; font-size: 0.95rem; }
 
-    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 20px; }
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 16px; }
     .lightbox.active { opacity: 1; visibility: visible; }
-    .lightbox-content { position: relative; max-width: 90%; max-height: 85vh; display: flex; flex-direction: column; align-items: center; }
-    .lightbox img { max-width: 100%; max-height: 75vh; border-radius: 8px; object-fit: contain; }
-    .lightbox-desc { color: white; margin-top: 20px; font-size: 1.2rem; text-align: center; }
-    .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; background: none; border: none; z-index: 2010; }
+    .lightbox-content { position: relative; max-width: 95%; max-height: 85vh; display: flex; flex-direction: column; align-items: center; }
+    .lightbox img { max-width: 100%; max-height: 70vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-desc { color: white; margin-top: 16px; font-size: 1rem; text-align: center; }
+    .lightbox-close { position: absolute; top: 15px; right: 20px; color: white; font-size: 2.2rem; cursor: pointer; background: none; border: none; z-index: 2010; }
 
-    .footer { background: var(--laranja); color: white; padding: 50px 5% 30px; text-align: center; }
+    .footer { background: var(--laranja); color: white; padding: 40px 4% 24px; text-align: center; font-size: 0.9rem; }
+
+    @media (max-width: 992px) {
+      .section-detalhes { grid-template-columns: 1fr; gap: 30px; }
+    }
+    @media (max-width: 768px) {
+      .header { height: 70px; padding: 0 4%; }
+      .logo img { height: 75px; }
+      .hero-obra { height: 75vh; padding: 6% 4%; }
+      .grid-galeria { grid-template-columns: 1fr; }
+      .grid-item { height: 280px; }
+    }
   </style>
 </head>
 <body>
@@ -100,7 +111,7 @@
       <h2>Escopo do Projeto e Execução</h2>
       <p>A Ebric Engenharia atuou com excelência técnica na execução de infraestrutura avançada para a Bahiagás em 2026, integrando frentes complexas de engenharia civil, mecânica, elétrica e instrumentação[cite: 28, 29].</p>
       <p>Dentre os principais entregáveis do projeto destacam-se a <strong>instalação da cabeça de TH</strong> e a <strong>montagem da área de válvulas de segurança do gasoduto</strong>, garantindo o seccionamento, controle e estanqueidade operacional sob rigorosos padrões normativos[cite: 28, 29].</p>
-      <p>Adicionalmente, foi executada a <strong>montagem completa da unidade do sistema de combate a incêndio</strong>, contemplando redes de hidrantes, tanques de armazenamento e automação de segurança integrada[cite: 31].</p>
+      <p>Adicionalmente, foi executada a <strong>montagem completa da unidade do sistema de combate a incêndio</strong>, contemplando redes de hidrantes, tanques de armazenamento e automação de segurança integrada.</p>
     </div>
     <div class="parceiro-card">
       <img src="bahiagas-logo.png" alt="Bahiagás">
@@ -156,7 +167,7 @@
 
   <footer class="footer">
     <p>EBRIC ENGENHARIA E SERVIÇOS LTDA</p>
-    <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">© 2026 Ebric Engenharia. Todos os direitos reservados.</div>
+    <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 8px;">© 2026 Ebric Engenharia. Todos os direitos reservados.</div>
   </footer>
 
   <script>
