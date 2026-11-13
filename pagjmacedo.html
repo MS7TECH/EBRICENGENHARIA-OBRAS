@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebric Engenharia | Complexo J. Macêdo - Simões Filho</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    :root {
+      --vermelho: #C8102E;
+      --vermelho-escuro: #9B0C24;
+      --laranja: #FF6B00;
+      --branco: #FFFFFF;
+      --off-white: #F8F7F5;
+      --cinza-claro: #E8E6E3;
+      --cinza: #6B6B6B;
+      --escuro: #1A1A1A;
+      --sombra: 0 10px 40px rgba(0,0,0,0.12);
+      --sombra-forte: 0 20px 60px rgba(0,0,0,0.18);
+      --transicao: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--escuro); overflow-x: hidden; line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; line-height: 1.2; }
+
+    /* HEADER */
+    .header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 4%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.06); transition: var(--transicao); }
+    .header.scrolled { height: 75px; }
+    .logo img { height: 130px; width: auto; max-width: 240px; object-fit: contain; transition: height 0.3s ease; }
+    .header.scrolled .logo img { height: 105px; }
+    .btn-voltar { background: transparent; color: var(--escuro); border: 2px solid var(--cinza-claro); padding: 10px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; transition: var(--transicao); display: flex; align-items: center; gap: 8px; }
+    .btn-voltar:hover { border-color: var(--vermelho); color: var(--vermelho); }
+
+    /* HERO VÍDEO */
+    .hero-obra { 
+      position: relative; 
+      height: 100vh; 
+      min-height: 600px; 
+      display: flex; 
+      align-items: flex-end; 
+      padding: 6% 5%; 
+      overflow: hidden; 
+      background: #000; 
+    }
+    .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; opacity: 0.65; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%); z-index: 2; }
+    
+    .hero-content { position: relative; z-index: 10; color: var(--branco); max-width: 1000px; width: 100%; }
+    .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 1px; }
+    .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 16px; text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+    .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.8); flex-wrap: wrap; }
+    .hero-meta span { display: flex; align-items: center; gap: 8px; }
+
+    /* BOTÃO EXPANDIR VÍDEO */
+    .btn-fullscreen { 
+      position: absolute;
+      bottom: 40px; 
+      right: 5%; 
+      z-index: 50;
+      background: rgba(0, 0, 0, 0.8); 
+      color: white; 
+      border: 2px solid rgba(255,255,255,0.5); 
+      padding: 14px 28px; 
+      border-radius: 50px; 
+      cursor: pointer; 
+      transition: all 0.3s ease; 
+      backdrop-filter: blur(12px); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      gap: 10px; 
+      box-shadow: 0 8px 25px rgba(0,0,0,0.45); 
+      font-family: 'Inter', sans-serif; 
+      font-weight: 600; 
+      font-size: 1rem;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+    .btn-fullscreen:hover { 
+      background: var(--laranja); 
+      border-color: var(--laranja); 
+      transform: translateY(-4px); 
+      box-shadow: 0 12px 30px rgba(255, 107, 0, 0.5); 
+    }
+    .btn-fullscreen svg { 
+      width: 22px; 
+      height: 22px; 
+      stroke: currentColor; 
+      stroke-width: 2; 
+      fill: none; 
+    }
+
+    /* DESCRIÇÃO E PARCEIRO */
+    .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
+    .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
+    .descricao p { font-size: 1.1rem; color: var(--cinza); margin-bottom: 20px; line-height: 1.8; }
+    
+    .parceiro-card { background: var(--branco); border-radius: 24px; padding: 40px; box-shadow: var(--sombra); text-align: center; }
+    .parceiro-card img { max-width: 180px; height: auto; margin-bottom: 20px; }
+    .parceiro-card h3 { font-size: 1.3rem; margin-bottom: 10px; }
+    .parceiro-card p { font-size: 0.95rem; color: var(--cinza); }
+    .info-list { margin-top: 30px; text-align: left; border-top: 1px solid var(--cinza-claro); padding-top: 20px; }
+    .info-item { margin-bottom: 16px; }
+    .info-item strong { display: block; font-size: 0.85rem; color: var(--vermelho); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+    .info-item span { font-weight: 500; color: var(--escuro); }
+
+    /* GALERIA */
+    .section-galeria { padding: 0 5% 100px; max-width: 1400px; margin: 0 auto; }
+    .galeria-header { text-align: center; margin-bottom: 50px; }
+    .galeria-header h2 { font-size: 2.5rem; color: var(--escuro); }
+    
+    .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .grid-item { border-radius: 16px; overflow: hidden; height: 350px; cursor: pointer; position: relative; }
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+    .grid-item:hover img { transform: scale(1.08); }
+    
+    .grid-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; pointer-events: none; }
+    .grid-item:hover .grid-overlay { opacity: 1; }
+    .grid-overlay span { color: white; font-weight: 500; font-size: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    
+    /* LIGHTBOX */
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 20px; }
+    .lightbox.active { opacity: 1; visibility: visible; }
+    .lightbox-content { position: relative; max-width: 90%; max-height: 85vh; display: flex; flex-direction: column; align-items: center; }
+    .lightbox img { max-width: 100%; max-height: 75vh; border-radius: 8px; box-shadow: 0 10px 50px rgba(0,0,0,0.5); }
+    .lightbox-desc { color: white; margin-top: 20px; font-size: 1.2rem; font-weight: 500; text-align: center; }
+    .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; background: none; border: none; z-index: 2010; }
+
+    /* FOOTER */
+    .footer { background: var(--laranja); color: white; padding: 50px 5% 30px; text-align: center; }
+
+    /* RESPONSIVO */
+    @media (max-width: 992px) {
+      .section-detalhes { grid-template-columns: 1fr; }
+      .hero-obra { padding-bottom: 12%; }
+      .btn-fullscreen { 
+        bottom: 25px; 
+        right: 50%; 
+        transform: translateX(50%); 
+        width: 90%; 
+        max-width: 320px; 
+      }
+      .btn-fullscreen:hover { 
+        transform: translateX(50%) translateY(-4px); 
+      }
+    }
+    @media (max-width: 768px) {
+      .header { height: 75px; }
+      .logo img { height: 85px; max-width: 170px; }
+      .hero-content h1 { font-size: 2rem; }
+      .grid-galeria { grid-template-columns: 1fr; }
+      .grid-item { height: 250px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <a href="index.html" class="logo">
+      <img src="src/img/IMAGENS JMACEDO/logo-ebricsemfundo.png" alt="Ebric Engenharia">
+    </a>
+    <a href="index.html#obras" class="btn-voltar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Voltar
+    </a>
+  </header>
+
+  <!-- HERO VIDEO -->
+  <section class="hero-obra">
+    <video id="obraVideo" class="hero-video" src="src/img/IMAGENS JMACEDO/jmacedo-video-drone-maquete.mp4" autoplay loop muted playsinline></video>
+    <div class="hero-overlay"></div>
+    
+    <div class="hero-content" id="heroContent">
+      <span class="tag-categoria">Industrial</span>
+      <h1>Montagem das Linhas de Massas e Silos</h1>
+      <div class="hero-meta">
+        <span>📍 Simões Filho, BA</span>
+        <span>📅 Novembro, 2018</span>
+        <span>🏗️ Engenharia Industrial / Içamento</span>
+      </div>
+    </div>
+
+    <!-- BOTÃO EXPANDIR VÍDEO -->
+    <button id="btnFullscreen" class="btn-fullscreen" aria-label="Ver vídeo em ecrã completo" title="Assistir em Ecrã Completo">
+      <svg viewBox="0 0 24 24">
+        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+      </svg>
+      Expandir Vídeo
+    </button>
+  </section>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <section class="section-detalhes">
+    <div class="descricao" id="descContent">
+      <h2>O Desafio e a Solução</h2>
+      <p>A Ebric Engenharia foi responsável pela montagem de alta complexidade do sistema de ingredientes e linhas de massas na planta industrial da J. Macêdo em Simões Filho.</p>
+      <p>O projeto envolveu o uso extensivo da nossa frota pesada, incluindo camiões-prancha e gruas (camiões Munck) para o içamento seguro de silos, estruturas metálicas de grande porte e equipamentos de precisão.</p>
+      <p>A nossa equipa operou sob rigorosos padrões de segurança, garantindo a integridade dos equipamentos e a fluidez do cronograma, reafirmando a nossa experiência em montagens industriais estruturais.</p>
+    </div>
+
+    <div class="parceiro-card" id="parceiroCard">
+      <img src="src/img/IMAGENS JMACEDO/logo-macedo.png" alt="J. Macêdo">
+      <h3>J. Macêdo</h3>
+      <p>O sabor de fazer bem feito.</p>
+      
+      <div class="info-list">
+        <div class="info-item">
+          <strong>Escopo Principal</strong>
+          <span>Montagem Eletromecânica e Içamento</span>
+        </div>
+        <div class="info-item">
+          <strong>Equipamentos Utilizados</strong>
+          <span>Gruas, Camião Munck, Contentores</span>
+        </div>
+        <div class="info-item">
+          <strong>Efetivo</strong>
+          <span>+40 Profissionais Qualificados</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIA -->
+  <section class="section-galeria">
+    <div class="galeria-header" id="galeriaHeader">
+      <h2>Acompanhamento da Obra</h2>
+    </div>
+    
+    <div class="grid-galeria">
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Caminhão Munck Ebric descarregando Container')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-munck-container-01.jpg" alt="Caminhão Munck Ebric descarregando Container">
+        <div class="grid-overlay"><span>Caminhão Munck Ebric descarregando Container</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Içamento de Equipamentos Industriais')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-icamento-guindaste-02.jpg" alt="Içamento de Equipamentos Industriais">
+        <div class="grid-overlay"><span>Içamento de Equipamentos Industriais</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Montagem de Tendas e Estruturas')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-montagem-tenda-03.jpg" alt="Montagem de Tendas e Estruturas">
+        <div class="grid-overlay"><span>Montagem de Tendas e Estruturas</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Equipe Ebric aplicando revestimento industrial no piso')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-revestimento-piso-04.jpg" alt="Equipe Ebric aplicando revestimento industrial no piso">
+        <div class="grid-overlay"><span>Equipe Ebric aplicando revestimento industrial no piso</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Operação com plataformas elevatórias e guindastes internos')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-munck-plataforma-05.jpg" alt="Operação com plataformas elevatórias e guindastes internos">
+        <div class="grid-overlay"><span>Operação com plataformas elevatórias e guindastes internos</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Equipe Ebric Engenharia no local')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-equipe-externa-06.jpg" alt="Equipe Ebric Engenharia no local">
+        <div class="grid-overlay"><span>Equipe Ebric Engenharia no local</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Visão geral da montagem interna no galpão')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-galpao-interno-07.jpg" alt="Visão geral da montagem interna no galpão">
+        <div class="grid-overlay"><span>Visão geral da montagem interna no galpão</span></div>
+      </div>
+      
+      <div class="grid-item" onclick="openLightbox(this.querySelector('img').src, 'Montagem das linhas de roletes e massas')">
+        <img src="src/img/IMAGENS JMACEDO/jmacedo-linhas-massas-08.jpg" alt="Montagem das linhas de roletes e massas">
+        <div class="grid-overlay"><span>Montagem das linhas de roletes e massas</span></div>
+      </div>
+      
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="Imagem ampliada">
+      <p id="lightboxDesc" class="lightbox-desc"></p>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>EBRIC ENGENHARIA E SERVIÇOS LTDA</p>
+    <p style="font-size: 0.85rem; opacity: 0.8;">© 2026 Ebric Engenharia. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Header no scroll
+    window.addEventListener('scroll', () => {
+      const header = document.getElementById('header');
+      if (window.scrollY > 50) header.classList.add('scrolled');
+      else header.classList.remove('scrolled');
+    });
+
+    // Animações GSAP
+    document.addEventListener('DOMContentLoaded', () => {
+      gsap.registerPlugin(ScrollTrigger);
+
+      gsap.from('#heroContent', { y: 50, opacity: 0, duration: 1, delay: 0.2, ease: 'power3.out' });
+
+      gsap.from('#descContent', { 
+        scrollTrigger: { trigger: '.section-detalhes', start: 'top 80%' },
+        x: -40, opacity: 0, duration: 0.8, ease: 'power2.out' 
+      });
+      gsap.from('#parceiroCard', { 
+        scrollTrigger: { trigger: '.section-detalhes', start: 'top 80%' },
+        x: 40, opacity: 0, duration: 0.8, delay: 0.2, ease: 'power2.out' 
+      });
+
+      gsap.from('.galeria-header', {
+        scrollTrigger: { trigger: '.section-galeria', start: 'top 85%' },
+        y: 30, opacity: 0, duration: 0.6
+      });
+      gsap.from('.grid-item', {
+        scrollTrigger: { trigger: '.grid-galeria', start: 'top 85%' },
+        y: 40, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power2.out'
+      });
+    });
+
+    // Fullscreen do Vídeo
+    const video = document.getElementById('obraVideo');
+    const btnFullscreen = document.getElementById('btnFullscreen');
+
+    btnFullscreen.addEventListener('click', () => {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
+      }
+    });
+
+    const handleFullscreenChange = () => {
+      const isFullscreen = document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement;
+      
+      if (isFullscreen === video) {
+        // Entrou em tela cheia → remove o filtro escuro
+        video.controls = true;
+        video.muted = false;
+        video.style.opacity = '1';
+      } else {
+        // Saiu da tela cheia → volta o filtro
+        video.controls = false;
+        video.muted = true;
+        video.style.opacity = '0.65';
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange);
+    document.addEventListener('msfullscreenchange', handleFullscreenChange);
+
+    // Lightbox
+    function openLightbox(src, desc) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxDesc').textContent = desc; 
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if(e.target === document.getElementById('lightbox') || e.target.classList.contains('lightbox-content')) {
+        closeLightbox();
+      }
+    });
+  </script>
+</body>
+</html>
