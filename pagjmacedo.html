@@ -43,6 +43,9 @@
     .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 16px; }
     .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.8); flex-wrap: wrap; }
 
+    .btn-fullscreen { position: absolute; bottom: 40px; right: 5%; z-index: 50; background: rgba(0, 0, 0, 0.8); color: white; border: 2px solid rgba(255,255,255,0.5); padding: 14px 28px; border-radius: 50px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-weight: 600; backdrop-filter: blur(12px); transition: var(--transicao); }
+    .btn-fullscreen:hover { background: var(--laranja); border-color: var(--laranja); }
+
     .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
     .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
     .descricao p { font-size: 1.1rem; color: var(--cinza); margin-bottom: 20px; line-height: 1.8; }
@@ -82,9 +85,9 @@
     <a href="index.html#obras" class="btn-voltar">Voltar</a>
   </header>
 
-  <section class="hero-obra">
+  <section class="hero-obra" id="heroSecao">
     <div class="hero-video-container">
-      <iframe src="https://www.youtube.com/embed/tSrKHJlmNqI?autoplay=1&mute=1&loop=1&playlist=tSrKHJlmNqI&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" allow="autoplay; encrypted-media" title="Vídeo Drone Maquete"></iframe>
+      <iframe id="youtubeIframe" src="https://www.youtube.com/embed/tSrKHJlmNqI?autoplay=1&mute=1&loop=1&playlist=tSrKHJlmNqI&controls=0&showinfo=0&rel=0&iv_load_policy=3&disablekb=1" allow="autoplay; encrypted-media" title="Vídeo Drone Maquete"></iframe>
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -95,11 +98,12 @@
         <span>📅 Novembro, 2018</span>
       </div>
     </div>
+    <button id="btnFullscreen" class="btn-fullscreen">Expandir Tela</button>
   </section>
 
   <section class="section-detalhes">
     <div class="descricao">
-      <h2>O Desafio e a Solução</h2>
+      <h2>O Desafio e la Solução</h2>
       <p>A Ebric Engenharia foi responsável pela montagem de alta complexidade do sistema de ingredientes e linhas de massas na planta industrial da J. Macêdo em Simões Filho.</p>
     </div>
     <div class="parceiro-card">
@@ -156,6 +160,17 @@
   </footer>
 
   <script>
+    const heroSecao = document.getElementById('heroSecao');
+    document.getElementById('btnFullscreen').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        heroSecao.requestFullscreen().catch(err => {
+          alert(`Erro ao tentar modo tela cheia: ${err.message}`);
+        });
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
     function openLightbox(src, desc) {
       document.getElementById('lightboxImg').src = src;
       document.getElementById('lightboxDesc').textContent = desc;
