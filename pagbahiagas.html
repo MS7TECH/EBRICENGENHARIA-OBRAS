@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebric Engenharia | Bahiagás - Gasodutos, Válvulas e Combate a Incêndio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  
+  <style>
+    :root {
+      --vermelho: #C8102E;
+      --laranja: #FF6B00;
+      --branco: #FFFFFF;
+      --off-white: #F8F7F5;
+      --cinza-claro: #E8E6E3;
+      --cinza: #6B6B6B;
+      --escuro: #1A1A1A;
+      --sombra: 0 10px 40px rgba(0,0,0,0.12);
+      --transicao: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--escuro); overflow-x: hidden; line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; }
+
+    .header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 4%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .logo img { height: 130px; width: auto; object-fit: contain; }
+    .btn-voltar { background: transparent; color: var(--escuro); border: 2px solid var(--cinza-claro); padding: 10px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: var(--transicao); }
+    .btn-voltar:hover { border-color: var(--vermelho); color: var(--vermelho); }
+
+    .hero-obra { position: relative; height: 90vh; min-height: 550px; display: flex; align-items: flex-end; padding: 6% 5%; overflow: hidden; background: #000; }
+    .hero-bg-img { position: absolute; inset: 0; width: 100%; height: 100%; background-image: url('bahiagas-valvulas-seguranca-02.jpg'); background-size: cover; background-position: center; filter: brightness(0.7); z-index: 1; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%); z-index: 2; pointer-events: none; }
+    .hero-content { position: relative; z-index: 10; color: var(--branco); max-width: 1000px; }
+    .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); margin-bottom: 16px; }
+    .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.9); flex-wrap: wrap; }
+
+    .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
+    .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
+    .descricao p { font-size: 1.1rem; color: var(--cinza); margin-bottom: 20px; line-height: 1.8; }
+    .parceiro-card { background: var(--branco); border-radius: 24px; padding: 40px; box-shadow: var(--sombra); text-align: center; }
+    .parceiro-card img { max-width: 180px; height: auto; margin-bottom: 20px; object-fit: contain; }
+    .info-list { margin-top: 30px; text-align: left; border-top: 1px solid var(--cinza-claro); padding-top: 20px; }
+    .info-item { margin-bottom: 16px; }
+    .info-item strong { display: block; font-size: 0.85rem; color: var(--vermelho); text-transform: uppercase; margin-bottom: 4px; }
+    .info-item span { font-weight: 500; color: var(--escuro); }
+
+    .section-galeria { padding: 0 5% 100px; max-width: 1400px; margin: 0 auto; }
+    .galeria-header { text-align: center; margin-bottom: 50px; }
+    .galeria-header h2 { font-size: 2.2rem; color: var(--escuro); }
+    .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .grid-item { border-radius: 16px; overflow: hidden; height: 350px; cursor: pointer; position: relative; box-shadow: var(--sombra); }
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .grid-item:hover img { transform: scale(1.08); }
+    .grid-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 20px; }
+    .grid-item:hover .grid-overlay { opacity: 1; }
+    .grid-overlay span { color: white; font-weight: 500; font-size: 1.05rem; }
+
+    .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; padding: 20px; }
+    .lightbox.active { opacity: 1; visibility: visible; }
+    .lightbox-content { position: relative; max-width: 90%; max-height: 85vh; display: flex; flex-direction: column; align-items: center; }
+    .lightbox img { max-width: 100%; max-height: 75vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-desc { color: white; margin-top: 20px; font-size: 1.2rem; text-align: center; }
+    .lightbox-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; background: none; border: none; z-index: 2010; }
+
+    .footer { background: var(--laranja); color: white; padding: 50px 5% 30px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <a href="index.html" class="logo">
+      <img src="logo-ebric.png" alt="Ebric Engenharia">
+    </a>
+    <a href="index.html#obras" class="btn-voltar">Voltar</a>
+  </header>
+
+  <section class="hero-obra" id="heroSecao">
+    <div class="hero-bg-img"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="tag-categoria">Infraestrutura & Industrial</span>
+      <h1>Gasodutos, Válvulas e Combate a Incêndio</h1>
+      <div class="hero-meta">
+        <span>📍 Jequié, BA</span>
+        <span>📅 Abril, 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-detalhes">
+    <div class="descricao">
+      <h2>Escopo do Projeto e Execução</h2>
+      <p>A Ebric Engenharia atuou com excelência técnica na execução de infraestrutura avançada para a Bahiagás em 2026, integrando frentes complexas de engenharia civil, mecânica, elétrica e instrumentação[cite: 28, 29].</p>
+      <p>Dentre os principais entregáveis do projeto destacam-se a <strong>instalação da cabeça de TH</strong> e a <strong>montagem da área de válvulas de segurança do gasoduto</strong>, garantindo o seccionamento, controle e estanqueidade operacional sob rigorosos padrões normativos[cite: 28, 29].</p>
+      <p>Adicionalmente, foi executada a <strong>montagem completa da unidade do sistema de combate a incêndio</strong>, contemplando redes de hidrantes, tanques de armazenamento e automação de segurança integrada.</p>
+    </div>
+    <div class="parceiro-card">
+      <img src="bahiagas-logo.png" alt="Bahiagás">
+      <h3>BAHIAGÁS</h3>
+      <p>Companhia de Gás da Bahia</p>
+      <div class="info-list">
+        <div class="info-item"><strong>Disciplinas</strong><span>Civil, Mecânica, Elétrica e Instrumentação/Automação</span></div>
+        <div class="info-item"><strong>Principais Ativos</strong><span>Cabeça de TH, Válvulas de Segurança e Combate a Incêndio</span></div>
+        <div class="info-item"><strong>Ano de Execução</strong><span>2026</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-galeria">
+    <div class="galeria-header">
+      <h2>Galeria de Fotos da Obra</h2>
+    </div>
+    <div class="grid-galeria">
+      <div class="grid-item" onclick="openLightbox('bahiagas-munck-dutos-01.jpg', 'Frente de Obra - Operação Logística e Lançamento de Dutos')">
+        <img src="bahiagas-munck-dutos-01.jpg" alt="Logística e Lançamento de Dutos">
+        <div class="grid-overlay"><span>Frente de Obra - Operação e Lançamento de Dutos</span></div>
+      </div>
+      <div class="grid-item" onclick="openLightbox('bahiagas-valvulas-seguranca-02.jpg', 'Montagem da Área de Válvulas de Segurança do Gasoduto')">
+        <img src="bahiagas-valvulas-seguranca-02.jpg" alt="Válvulas de Segurança">
+        <div class="grid-overlay"><span>Montagem da Área de Válvulas de Segurança</span></div>
+      </div>
+      <div class="grid-item" onclick="openLightbox('bahiagas-linhas-atuadores-03.jpg', 'Detalhe das Linhas e Atuadores na Estação')">
+        <img src="bahiagas-linhas-atuadores-03.jpg" alt="Detalhe das Linhas">
+        <div class="grid-overlay"><span>Detalhe das Linhas e Atuadores na Estação</span></div>
+      </div>
+      <div class="grid-item" onclick="openLightbox('bahiagas-combate-incendio-04.jpg', 'Unidade do Sistema de Combate a Incêndio')">
+        <img src="bahiagas-combate-incendio-04.jpg" alt="Sistema de Combate a Incêndio">
+        <div class="grid-overlay"><span>Unidade do Sistema de Combate a Incêndio</span></div>
+      </div>
+      <div class="grid-item" onclick="openLightbox('bahiagas-inspecao-valas-05.jpg', 'Inspeção e Conexão de Redes em Vala')">
+        <img src="bahiagas-inspecao-valas-05.jpg" alt="Inspeção de Redes">
+        <div class="grid-overlay"><span>Inspeção e Conexão de Redes em Vala</span></div>
+      </div>
+      <div class="grid-item" onclick="openLightbox('bahiagas-icamento-tubulacoes-06.jpg', 'Içamento e Posicionamento de Tubulações')">
+        <img src="bahiagas-icamento-tubulacoes-06.jpg" alt="Içamento com Munck">
+        <div class="grid-overlay"><span>Içamento e Posicionamento de Tubulações</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="">
+      <p id="lightboxDesc" class="lightbox-desc"></p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>EBRIC ENGENHARIA E SERVIÇOS LTDA</p>
+    <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">© 2026 Ebric Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    function openLightbox(src, desc) {
+      document.getElementById('lightboxImg').src = src;
+      document.getElementById('lightboxDesc').textContent = desc;
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+  </script>
+</body>
+</html>
