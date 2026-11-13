@@ -1043,20 +1043,20 @@
   <!-- STATS -->
   <div class="stats" id="stats">
     <div class="stat-item">
-      <div class="stat-number" data-target="150">0</div>
-      <div class="stat-label">Obras Entregues</div>
+      <div class="stat-number" data-target="30">0</div>
+      <div class="stat-label">Projetos Executados</div>
     </div>
     <div class="stat-item">
       <div class="stat-number" data-target="10">0</div>
       <div class="stat-label">Anos de Experiência</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" data-target="85">0</div>
-      <div class="stat-label">Clientes Satisfeitos</div>
+      <div class="stat-number" data-target="100">0</div>
+      <div class="stat-label">Compromisso com Prazos</div>
     </div>
     <div class="stat-item">
-      <div class="stat-number" data-target="12">0</div>
-      <div class="stat-label">Estados Atendidos</div>
+      <div class="stat-number" data-target="100">0</div>
+      <div class="stat-label">Rigidez em Segurança (%)</div>
     </div>
   </div>
 
@@ -1120,7 +1120,7 @@
       </div>
       <div class="sobre-visual">
         <div class="sobre-visual-inner">
-          <div class="big-number">+150</div>
+          <div class="big-number">+30</div>
           <p>Projetos concluídos com excelência<br>em todo o território nacional</p>
         </div>
       </div>
@@ -1464,10 +1464,10 @@
         const update = () => {
           current += step;
           if (current < target) {
-            counter.textContent = Math.floor(current) + (target >= 100 ? '+' : '');
+            counter.textContent = Math.floor(current) + (target >= 100 ? '%' : target >= 30 ? '+' : '');
             requestAnimationFrame(update);
           } else {
-            counter.textContent = target + (target >= 10 ? '+' : '');
+            counter.textContent = target + (target >= 100 ? '%' : target >= 30 ? '+' : '');
           }
         };
         update();
