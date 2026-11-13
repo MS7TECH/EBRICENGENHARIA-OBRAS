@@ -1225,6 +1225,17 @@
     // ========== DADOS DAS OBRAS ==========
     const obras = [
       {
+        id: 'j-macedo',
+        titulo: "Montagem das Linhas de Massas e Silos",
+        categoria: "industrial",
+        local: "Simões Filho, BA",
+        ano: "2018",
+        descricao: "Montagem de alta complexidade do sistema de ingredientes e linhas de massas na planta industrial da J. Macêdo.",
+        detalhes: "Montagem eletromecânica e içamento de silos e estruturas metálicas de grande porte com rigorosos padrões de segurança.",
+        img: "jmacedo-munck-container-01.jpg",
+        link: "pagjmacedo.html"
+      },
+      {
         id: 1,
         titulo: "Rede de Dutos Gasoduto Norte",
         categoria: "infraestrutura",
@@ -1232,7 +1243,8 @@
         ano: "2024",
         descricao: "Implantação de rede de dutos para transporte de gás natural com extensão de 48 km, incluindo estações de compressão e sistemas de monitoramento.",
         detalhes: "Projeto executado com tecnologia de ponta em soldagem e inspeção não destrutiva. Cumpriu todos os padrões de segurança e meio ambiente exigidos pela ANP. Entrega no prazo e com zero acidentes.",
-        img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&q=80",
+        link: "#"
       },
       {
         id: 2,
@@ -1242,7 +1254,8 @@
         ano: "2023",
         descricao: "Construção de estruturas metálicas e civil para expansão de planta industrial do polo petroquímico, totalizando 12.000 m² de área construída.",
         detalhes: "Obra de grande porte envolvendo fundações especiais, estruturas pré-moldadas e instalações industriais. Coordenação simultânea de múltiplas frentes de serviço com rigoroso controle de qualidade.",
-        img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80",
+        link: "#"
       },
       {
         id: 4,
@@ -1252,7 +1265,8 @@
         ano: "2022",
         descricao: "Implantação de adutora de grande diâmetro para abastecimento de água, com 22 km de extensão e 4 estações elevatórias.",
         detalhes: "Desafio técnico de travessias urbanas e ambientais. Soluções de engenharia para minimizar impacto e garantir continuidade do abastecimento durante a obra.",
-        img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80",
+        link: "#"
       },
       {
         id: 5,
@@ -1262,7 +1276,8 @@
         ano: "2022",
         descricao: "Construção de estação de tratamento de efluentes industriais com capacidade de 500 m³/h, atendendo normas ambientais rigorosas.",
         detalhes: "Projeto integrado de civil, mecânica e elétrica. Sistema automatizado de controle e monitoramento em tempo real. Entrega certificada por órgãos ambientais.",
-        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80",
+        link: "#"
       },
       {
         id: 6,
@@ -1272,7 +1287,8 @@
         ano: "2021",
         descricao: "Ampliação de terminal de cargas com construção de pátios, armazéns e infraestrutura de acesso rodoviário e ferroviário.",
         detalhes: "Obra estratégica para o escoamento de produção industrial. Coordenação com autoridades portuárias e cumprimento de rigorosos padrões de segurança operacional.",
-        img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80",
+        link: "#"
       },
       {
         id: 8,
@@ -1282,7 +1298,8 @@
         ano: "2020",
         descricao: "Implantação de rede de distribuição de utilidades (vapor, ar comprimido e água industrial) para complexo fabril.",
         detalhes: "Projeto de alta complexidade com integração a sistemas existentes em operação. Parada programada mínima e zero interferência na produção do cliente.",
-        img: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80"
+        img: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80",
+        link: "#"
       }
     ];
 
@@ -1314,8 +1331,13 @@
 
       document.querySelectorAll('.obra-card').forEach(card => {
         card.addEventListener('click', () => {
-          const id = parseInt(card.dataset.id);
-          abrirModal(id);
+          const id = card.dataset.id;
+          const obra = obras.find(o => o.id == id);
+          if (obra && obra.link && obra.link !== '#') {
+            window.location.href = obra.link;
+          } else {
+            abrirModal(typeof id === 'number' ? parseInt(id) : id);
+          }
         });
       });
     }
