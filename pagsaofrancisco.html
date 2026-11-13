@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ebric Engenharia | Prefeitura de São Francisco do Conde - Cobertura de Ginásio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --vermelho: #C8102E;
+      --laranja: #FF6B00;
+      --branco: #FFFFFF;
+      --off-white: #F8F7F5;
+      --cinza-claro: #E8E6E3;
+      --cinza: #6B6B6B;
+      --escuro: #1A1A1A;
+      --sombra: 0 10px 40px rgba(0,0,0,0.12);
+      --transicao: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--escuro); overflow-x: hidden; line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; font-weight: 700; }
+
+    .header { position: fixed; top: 0; left: 0; width: 100%; height: 90px; background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: space-between; padding: 0 4%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .logo img { height: 130px; width: auto; object-fit: contain; }
+    .btn-voltar { background: transparent; color: var(--escuro); border: 2px solid var(--cinza-claro); padding: 10px 24px; border-radius: 50px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: var(--transicao); }
+    .btn-voltar:hover { border-color: var(--vermelho); color: var(--vermelho); }
+
+    .hero-obra { position: relative; height: 90vh; min-height: 550px; display: flex; align-items: flex-end; padding: 6% 5%; overflow: hidden; background: #000; }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.65); z-index: 1; }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, transparent 100%); z-index: 2; pointer-events: none; }
+    .hero-content { position: relative; z-index: 10; color: var(--branco); max-width: 1000px; }
+    .tag-categoria { display: inline-block; background: var(--laranja); color: white; padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; margin-bottom: 20px; }
+    .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.2rem); margin-bottom: 16px; }
+    .hero-meta { display: flex; gap: 24px; font-size: 1.1rem; color: rgba(255,255,255,0.9); flex-wrap: wrap; }
+
+    .section-detalhes { padding: 100px 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start; }
+    .descricao h2 { font-size: 2.2rem; margin-bottom: 24px; color: var(--escuro); }
+    .descricao p { font-size: 1.1rem; color: var(--cinza); margin-bottom: 20px; line-height: 1.8; }
+    .parceiro-card { background: var(--branco); border-radius: 24px; padding: 40px; box-shadow: var(--sombra); text-align: center; }
+    .parceiro-card img { max-width: 160px; height: auto; margin-bottom: 20px; object-fit: contain; border-radius: 12px; }
+    .info-list { margin-top: 30px; text-align: left; border-top: 1px solid var(--cinza-claro); padding-top: 20px; }
+    .info-item { margin-bottom: 16px; }
+    .info-item strong { display: block; font-size: 0.85rem; color: var(--vermelho); text-transform: uppercase; margin-bottom: 4px; }
+    .info-item span { font-weight: 500; color: var(--escuro); }
+
+    .section-galeria { padding: 0 5% 100px; max-width: 1400px; margin: 0 auto; }
+    .galeria-header { text-align: center; margin-bottom: 20px; }
+    .galeria-header h2 { font-size: 2.2rem; color: var(--escuro); }
+    .galeria-header p { color: var(--cinza); font-size: 1rem; margin-top: 8px; }
+    .grid-galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 30px; margin-top: 40px; }
+    .grid-item { border-radius: 20px; overflow: hidden; height: 400px; cursor: pointer; position: relative; box-shadow: var(--sombra); background: #000; }
+    .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .grid-item:hover img { transform: scale(1.06); }
+    .grid-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 30px; }
+    .grid-overlay span { color: white; font-weight: 700; font-size: 1.25rem; margin-bottom: 6px; }
+    .grid-overlay small { color: rgba(255,255,255,0.8); font-size: 0.9rem; display: flex; align-items: center; gap: 6px; }
+
+    /* Modal Imersivo 360 / Zoom */
+    .immersive-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+    .immersive-modal.active { opacity: 1; visibility: visible; }
+    .immersive-viewport { position: relative; width: 90vw; height: 80vh; overflow: hidden; border-radius: 16px; cursor: grab; background: #050505; display: flex; align-items: center; justify-content: center; }
+    .immersive-viewport:active { cursor: grabbing; }
+    .immersive-viewport img { max-width: 100%; max-height: 100%; object-fit: contain; transition: transform 0.1s ease-out; transform-origin: center center; user-select: none; }
+    .immersive-controls { display: flex; gap: 15px; margin-top: 20px; align-items: center; }
+    .ctrl-btn { background: rgba(255,255,255,0.15); color: white; border: none; padding: 10px 20px; border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 6px; font-size: 0.95rem; }
+    .ctrl-btn:hover { background: var(--vermelho); }
+    .immersive-close { position: absolute; top: 30px; right: 40px; color: white; font-size: 2.5rem; cursor: pointer; background: none; border: none; z-index: 2010; }
+    .immersive-title { position: absolute; top: 30px; left: 40px; color: white; font-family: 'Outfit', sans-serif; font-size: 1.3rem; z-index: 2010; }
+
+    .footer { background: var(--laranja); color: white; padding: 50px 5% 30px; text-align: center; }
+
+    @media (max-width: 768px) {
+      .section-detalhes { grid-template-columns: 1fr; gap: 40px; }
+      .grid-galeria { grid-template-columns: 1fr; }
+      .immersive-viewport { width: 95vw; height: 70vh; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <a href="index.html" class="logo">
+      <img src="logo-ebric.png" alt="Ebric Engenharia">
+    </a>
+    <a href="index.html#obras" class="btn-voltar">Voltar</a>
+  </header>
+
+  <section class="hero-obra" id="heroSecao">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="videoginasio.mp4" type="video/mp4">
+      Seu navegador não suporta vídeos HTML5.
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="tag-categoria">Infraestrutura Pública & Estruturas Metálicas</span>
+      <h1>Cobertura do Ginásio Municipal</h1>
+      <div class="hero-meta">
+        <span>📍 São Francisco do Conde, BA</span>
+        <span>📅 Projeto Executado</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-detalhes">
+    <div class="descricao">
+      <h2>Engenharia e Arquitetura Metálica de Grande Porte</h2>
+      <p>A Ebric Engenharia executou com alto rigor técnico a <strong>cobertura do ginásio da Prefeitura de São Francisco do Conde</strong>, estruturada inteiramente em arcos metálicos de grande vão, garantindo durabilidade, vãos livres otimizados e excelente conforto termoacústico para a comunidade.</p>
+      <p>O escopo envolveu desde o projeto geométrico e estrutural das teses e arcos metálicos até o içamento, montagem eletromecânica em altura e fixação de telhas trapezoidais especiais, cumprindo rigorosamente as normas de segurança do trabalho e engenharia estrutural.</p>
+      <p>Explore abaixo as imagens em alta resolução utilizando o nosso **Modo Imersivo 360/Zoom** para analisar os detalhes construtivos internos e a vista aérea panorâmica da obra concluída.</p>
+    </div>
+    <div class="parceiro-card">
+      <img src="logo-prefeitura.png" alt="Prefeitura de São Francisco do Conde">
+      <h3>PREFEITURA DE SÃO FRANCISCO DO CONDE</h3>
+      <p>Governo Municipal · A Ilha do Recôncavo</p>
+      <div class="info-list">
+        <div class="info-item"><strong>Segmento</strong><span>Infraestrutura Esportiva e Pública</span></div>
+        <div class="info-item"><strong>Solução</strong><span>Estrutura Metálica em Arco e Cobertura</span></div>
+        <div class="info-item"><strong>Localização</strong><span>São Francisco do Conde – BA</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-galeria">
+    <div class="galeria-header">
+      <h2>Imagens Oficiais da Obra</h2>
+      <p>Clique em qualquer imagem para abrir o visualizador imersivo com zoom e navegação livre.</p>
+    </div>
+    <div class="grid-galeria">
+      <div class="grid-item" onclick="openImmersive('areainterna-ginasio.jpg', 'Área Interna - Cobertura em Arco Metálico e Quadra Poliesportiva')">
+        <img src="areainterna-ginasio.jpg" alt="Área Interna do Ginásio">
+        <div class="grid-overlay">
+          <span>Área Interna do Ginásio</span>
+          <small>🔍 Clique para entrar no Modo Imersivo 360/Zoom</small>
+        </div>
+      </div>
+      <div class="grid-item" onclick="openImmersive('areaexterna-ginasio.jpg', 'Vista Aérea Panorâmica - Ginásio e Entorno')">
+        <img src="areaexterna-ginasio.jpg" alt="Vista Externa e Aérea do Ginásio">
+        <div class="grid-overlay">
+          <span>Vista Aérea Panorâmica</span>
+          <small>🔍 Clique para entrar no Modo Imersivo 360/Zoom</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal Imersivo -->
+  <div class="immersive-modal" id="immersiveModal">
+    <button class="immersive-close" onclick="closeImmersive()">&times;</button>
+    <div class="immersive-title" id="immersiveTitle">Visualizador Imersivo</div>
+    <div class="immersive-viewport" id="viewport" onmousedown="startDrag(event)" onmousemove="dragging(event)" onmouseup="stopDrag()" onmouseleave="stopDrag()" onwheel="zoomWheel(event)">
+      <img id="immersiveImg" src="" alt="Imagem Ampliada">
+    </div>
+    <div class="immersive-controls">
+      <button class="ctrl-btn" onclick="zoomIn()">➕ Aproximar (Zoom +)</button>
+      <button class="ctrl-btn" onclick="zoomOut()">➖ Afastar (Zoom -)</button>
+      <button class="ctrl-btn" onclick="resetZoom()">🔄 Centralizar / Resetar</button>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>EBRIC ENGENHARIA E SERVIÇOS LTDA</p>
+    <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 10px;">© 2026 Ebric Engenharia. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    let scale = 1, posX = 0, posY = 0, isDragging = false, startX = 0, startY = 0;
+    const img = document.getElementById('immersiveImg');
+
+    function openImmersive(src, title) {
+      document.getElementById('immersiveImg').src = src;
+      document.getElementById('immersiveTitle').textContent = title;
+      document.getElementById('immersiveModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      resetZoom();
+    }
+
+    function closeImmersive() {
+      document.getElementById('immersiveModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateTransform() {
+      img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`;
+    }
+
+    function zoomIn() {
+      scale = Math.min(scale + 0.4, 4);
+      updateTransform();
+    }
+
+    function zoomOut() {
+      scale = Math.max(scale - 0.4, 1);
+      if (scale === 1) { posX = 0; posY = 0; }
+      updateTransform();
+    }
+
+    function resetZoom() {
+      scale = 1;
+      posX = 0;
+      posY = 0;
+      updateTransform();
+    }
+
+    function zoomWheel(e) {
+      e.preventDefault();
+      if (e.deltaY < 0) {
+        zoomIn();
+      } else {
+        zoomOut();
+      }
+    }
+
+    function startDrag(e) {
+      if (scale > 1) {
+        isDragging = true;
+        startX = e.clientX - posX;
+        startY = e.clientY - posY;
+      }
+    }
+
+    function dragging(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      posX = e.clientX - startX;
+      posY = e.clientY - startY;
+      updateTransform();
+    }
+
+    function stopDrag() {
+      isDragging = false;
+    }
+
+    document.getElementById('immersiveModal').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('immersiveModal')) closeImmersive();
+    });
+  </script>
+</body>
+</html>
